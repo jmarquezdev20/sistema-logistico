@@ -71,7 +71,7 @@ def crear_usuario(request):
         except Cliente.DoesNotExist:
             pass
 
-    # ── Envío de correo con credenciales ──────────────────────────
+    #Envío de correo con credenciales
     correo_enviado = False
     try:
         _enviar_correo_bienvenida(user, password_temporal, rol_nombre)

@@ -14,7 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
     rol_id = serializers.PrimaryKeyRelatedField(
         queryset=Rol.objects.all(), source='rol', write_only=True, required=False
     )
-    # ✅ Expone el id del cliente vinculado si existe
+    # Expone el id del cliente vinculado si existe
     cliente_id = serializers.SerializerMethodField()
     password = serializers.CharField(write_only=True, required=True)
 
@@ -55,6 +55,6 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         token = super().get_token(user)
         token['email'] = user.email
         token['rol'] = user.rol.nombre if user.rol else None
-        # ✅ cliente_id en el token para que el frontend lo use directamente
+        #cliente_id en el token para que el frontend lo use directamente
         token['cliente_id'] = str(user.cliente.id) if user.cliente else None
         return token
