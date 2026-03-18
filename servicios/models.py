@@ -29,6 +29,7 @@ class CatalogoServicio(models.Model):
     class Meta:
         verbose_name = 'Catálogo de Servicio'
         verbose_name_plural = 'Catálogo de Servicios'
+        ordering = ['nombre']
 
 
 class ServicioPrestado(models.Model):

@@ -13,4 +13,5 @@ urlpatterns = [
     path('me/',      views.me_view,                             name='me'),
     path('crear/',   views.crear_usuario,                       name='crear-usuario'),
     path('',         include(router.urls)),
+    path('cambiar-password/', views.cambiar_password, name='cambiar-password'),
 ]

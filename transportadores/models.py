@@ -26,3 +26,4 @@ class Transportador(models.Model):
     class Meta:
         verbose_name = 'Transportador'
         verbose_name_plural = 'Transportadores'
+        ordering = ['nombre']

@@ -5,7 +5,6 @@ from clientes.models import Cliente
 from transportadores.models import Transportador
 from inventario.models import Producto
 
-
 class OrdenEnvio(models.Model):
     PENDIENTE = 'pendiente'
     PREPARANDO = 'preparando'

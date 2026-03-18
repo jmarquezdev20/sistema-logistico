@@ -15,6 +15,7 @@ class Bodega(models.Model):
     class Meta:
         verbose_name = 'Bodega'
         verbose_name_plural = 'Bodegas'
+        ordering = ['nombre']
 
 
 class Ubicacion(models.Model):
@@ -30,3 +31,4 @@ class Ubicacion(models.Model):
         verbose_name = 'Ubicación'
         verbose_name_plural = 'Ubicaciones'
         unique_together = ('bodega', 'codigo')
+        ordering = ['bodega__nombre', 'codigo']

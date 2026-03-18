@@ -35,3 +35,4 @@ class ClienteViewSet(viewsets.ModelViewSet):
             accion=f'Eliminó cliente "{instance.nombre}"',
         )
         instance.delete()
+        

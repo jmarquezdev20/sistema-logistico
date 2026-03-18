@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import api from '../services/api'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -9,6 +10,20 @@ export default function Login() {
   const [loading, setLoading] = useState(false)
   const [showPass, setShowPass] = useState(false)
   const [mounted, setMounted] = useState(false)
+
+  // Modal cambiar contraseña
+  const [showModal, setShowModal] = useState(false)
+  const [modalEmail, setModalEmail] = useState('')
+  const [passActual, setPassActual] = useState('')
+  const [passNueva, setPassNueva] = useState('')
+  const [passConfirmar, setPassConfirmar] = useState('')
+  const [showPassActual, setShowPassActual] = useState(false)
+  const [showPassNueva, setShowPassNueva] = useState(false)
+  const [showPassConfirmar, setShowPassConfirmar] = useState(false)
+  const [modalError, setModalError] = useState('')
+  const [modalExito, setModalExito] = useState('')
+  const [modalLoading, setModalLoading] = useState(false)
+
   const { login } = useAuth()
   const navigate = useNavigate()
 
@@ -27,6 +42,73 @@ export default function Login() {
       setError('Credenciales inválidas. Verifica tu correo y contraseña.')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleAbrirModal = () => {
+    setModalEmail(email)
+    setPassActual('')
+    setPassNueva('')
+    setPassConfirmar('')
+    setModalError('')
+    setModalExito('')
+    setShowModal(true)
+  }
+
+  const handleCerrarModal = () => {
+    if (modalLoading) return
+    setShowModal(false)
+    setModalError('')
+    setModalExito('')
+  }
+
+  const handleCambiarPassword = async (e) => {
+    e.preventDefault()
+    setModalError('')
+    setModalExito('')
+
+    if (!modalEmail || !passActual || !passNueva || !passConfirmar) {
+      setModalError('Todos los campos son requeridos.')
+      return
+    }
+    if (passNueva !== passConfirmar) {
+      setModalError('Las contraseñas nuevas no coinciden.')
+      return
+    }
+    if (passNueva.length < 8) {
+      setModalError('La contraseña debe tener al menos 8 caracteres.')
+      return
+    }
+
+    setModalLoading(true)
+    try {
+      // Login temporal para obtener token
+      const loginRes = await api.post('/auth/login/', {
+        email: modalEmail,
+        password: passActual,
+      })
+      const token = loginRes.data.access
+
+      // Cambiar contraseña con el token
+      await api.post(
+        '/auth/cambiar-password/',
+        { password_actual: passActual, password_nueva: passNueva, password_confirmar: passConfirmar },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+
+      setModalExito('✅ Contraseña actualizada correctamente. Ya puedes iniciar sesión.')
+      setPassActual('')
+      setPassNueva('')
+      setPassConfirmar('')
+      setTimeout(() => {
+        setShowModal(false)
+        setEmail(modalEmail)
+      }, 2500)
+    } catch (err) {
+      const msg = err?.response?.data?.error || 'Error al cambiar la contraseña. Verifica tus datos.'
+      setModalError(msg)
+    } finally {
+      setModalLoading(false)
     }
   }
 
@@ -114,6 +196,7 @@ export default function Login() {
         .lx-eye:hover { color: rgba(255,255,255,0.6); }
 
         .lx-error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.25); color: #fca5a5; padding: 12px 14px; border-radius: 8px; margin-bottom: 20px; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+        .lx-success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25); color: #6ee7b7; padding: 12px 14px; border-radius: 8px; margin-bottom: 20px; font-size: 13px; display: flex; align-items: center; gap: 8px; }
 
         .lx-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%); color: var(--white); border: none; border-radius: 10px; font-size: 14px; font-weight: 700; font-family: 'Sora', sans-serif; cursor: pointer; letter-spacing: 0.02em; transition: all 0.2s; position: relative; overflow: hidden; box-shadow: 0 4px 24px rgba(26,86,219,0.35); margin-top: 8px; }
         .lx-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent); opacity: 0; transition: opacity 0.2s; }
@@ -121,6 +204,9 @@ export default function Login() {
         .lx-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 32px rgba(26,86,219,0.45); }
         .lx-btn:active:not(:disabled) { transform: translateY(0); }
         .lx-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .lx-link { background: none; border: none; cursor: pointer; color: rgba(59,130,246,0.7); font-size: 12px; font-family: 'Sora', sans-serif; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; padding: 0; margin-top: 16px; display: block; text-align: center; transition: color 0.15s; }
+        .lx-link:hover { color: var(--blue-light); }
 
         .lx-spin { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 8px; }
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -132,6 +218,18 @@ export default function Login() {
         .lx-cred-key { font-size: 10px; color: var(--gray2); width: 24px; flex-shrink: 0; }
         .lx-cred-val { font-size: 12px; color: rgba(255,255,255,0.5); font-family: 'JetBrains Mono', monospace; }
 
+        /* ── Modal ── */
+        .lx-overlay { position: fixed; inset: 0; background: rgba(5,13,31,0.85); backdrop-filter: blur(6px); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; animation: fadeIn 0.2s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .lx-modal { background: #0d1b35; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 36px 36px 32px; width: 100%; max-width: 440px; box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 32px 64px rgba(0,0,0,0.6); animation: slideUp 0.25s ease; position: relative; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        .lx-modal-close { position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--gray2); font-size: 16px; transition: all 0.15s; }
+        .lx-modal-close:hover { background: rgba(255,255,255,0.1); color: var(--white); }
+        .lx-modal-icon { width: 44px; height: 44px; background: linear-gradient(135deg, rgba(26,86,219,0.3), rgba(14,165,233,0.2)); border: 1px solid rgba(59,130,246,0.25); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
+        .lx-modal-title { font-size: 20px; font-weight: 800; color: var(--white); letter-spacing: -0.03em; margin-bottom: 4px; }
+        .lx-modal-sub { font-size: 13px; color: var(--gray2); margin-bottom: 24px; font-weight: 300; line-height: 1.5; }
+        .lx-modal-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 20px 0; }
+
         @media (max-width: 900px) { .lx-left, .lx-divider { display: none; } .lx-right { width: 100%; padding: 24px; } }
       `}</style>
 
@@ -139,6 +237,104 @@ export default function Login() {
         <div className="lx-grid" />
         <div className="lx-bg-teal" />
       </div>
+
+      {/* ── Modal cambiar contraseña ── */}
+      {showModal && (
+        <div className="lx-overlay" onClick={e => { if (e.target === e.currentTarget) handleCerrarModal() }}>
+          <div className="lx-modal">
+            <button className="lx-modal-close" onClick={handleCerrarModal} disabled={modalLoading}>✕</button>
+
+            <div className="lx-modal-icon">🔑</div>
+            <div className="lx-modal-title">Cambiar contraseña</div>
+            <div className="lx-modal-sub">
+              Ingresa tu correo y contraseña actual para establecer una nueva contraseña segura.
+            </div>
+
+            {modalError && (
+              <div className="lx-error"><span>⚠</span> {modalError}</div>
+            )}
+            {modalExito && (
+              <div className="lx-success"><span></span> {modalExito}</div>
+            )}
+
+            {!modalExito && (
+              <form onSubmit={handleCambiarPassword}>
+                <div className="lx-field">
+                  <label className="lx-label">Correo electrónico</label>
+                  <input
+                    className="lx-input"
+                    type="email"
+                    value={modalEmail}
+                    onChange={e => setModalEmail(e.target.value)}
+                    placeholder="correo@empresa.com"
+                    required
+                  />
+                </div>
+
+                <div className="lx-modal-divider" />
+
+                <div className="lx-field">
+                  <label className="lx-label">Contraseña actual</label>
+                  <div className="lx-input-wrap">
+                    <input
+                      className="lx-input"
+                      type={showPassActual ? 'text' : 'password'}
+                      value={passActual}
+                      onChange={e => setPassActual(e.target.value)}
+                      placeholder="Tu contraseña temporal"
+                      style={{ paddingRight: '44px' }}
+                      required
+                    />
+                    <button type="button" className="lx-eye" onClick={() => setShowPassActual(!showPassActual)}>
+                      {showPassActual ? '🙈' : '👁️'}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="lx-field">
+                  <label className="lx-label">Nueva contraseña</label>
+                  <div className="lx-input-wrap">
+                    <input
+                      className="lx-input"
+                      type={showPassNueva ? 'text' : 'password'}
+                      value={passNueva}
+                      onChange={e => setPassNueva(e.target.value)}
+                      placeholder="Mínimo 8 caracteres"
+                      style={{ paddingRight: '44px' }}
+                      required
+                    />
+                    <button type="button" className="lx-eye" onClick={() => setShowPassNueva(!showPassNueva)}>
+                      {showPassNueva ? '🙈' : '👁️'}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="lx-field" style={{ marginBottom: 0 }}>
+                  <label className="lx-label">Confirmar nueva contraseña</label>
+                  <div className="lx-input-wrap">
+                    <input
+                      className="lx-input"
+                      type={showPassConfirmar ? 'text' : 'password'}
+                      value={passConfirmar}
+                      onChange={e => setPassConfirmar(e.target.value)}
+                      placeholder="Repite la nueva contraseña"
+                      style={{ paddingRight: '44px' }}
+                      required
+                    />
+                    <button type="button" className="lx-eye" onClick={() => setShowPassConfirmar(!showPassConfirmar)}>
+                      {showPassConfirmar ? '🙈' : '👁️'}
+                    </button>
+                  </div>
+                </div>
+
+                <button type="submit" disabled={modalLoading} className="lx-btn" style={{ marginTop: '24px' }}>
+                  {modalLoading ? <><span className="lx-spin" />Actualizando...</> : 'Actualizar contraseña →'}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
 
       <div className="lx-root">
         {/* LEFT */}
@@ -219,6 +415,10 @@ export default function Login() {
                 {loading ? <><span className="lx-spin" />Ingresando...</> : 'Ingresar al sistema →'}
               </button>
             </form>
+
+            <button className="lx-link" onClick={handleAbrirModal}>
+              ¿Necesitas cambiar tu contraseña?
+            </button>
 
             <div className="lx-creds">
               <div className="lx-creds-title">Credenciales demo</div>

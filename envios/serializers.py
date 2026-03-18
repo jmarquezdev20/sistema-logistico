@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from .models import OrdenEnvio, EnvioProducto
 
-
 class EnvioProductoSerializer(serializers.ModelSerializer):
     producto_nombre = serializers.CharField(source='producto.nombre', read_only=True)
     stock_disponible = serializers.SerializerMethodField()
@@ -16,7 +15,6 @@ class EnvioProductoSerializer(serializers.ModelSerializer):
             return obj.producto.inventario.cantidad
         except Exception:
             return 0
-
 
 class OrdenEnvioSerializer(serializers.ModelSerializer):
     productos = EnvioProductoSerializer(many=True, read_only=True)

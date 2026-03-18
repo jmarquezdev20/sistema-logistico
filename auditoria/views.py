@@ -1,5 +1,3 @@
-
-
 # Create your views here.
 from rest_framework import viewsets, filters
 from rest_framework.response import Response
