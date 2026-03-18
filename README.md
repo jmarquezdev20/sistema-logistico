@@ -100,6 +100,12 @@ usuarios
 - Filtros por cliente, estado de facturación y rango de fechas
 - Los servicios se generan automáticamente al despachar envíos y al registrar recepciones
 
+### Transportadores
+- CRUD completo de transportadores
+- Registro de placa, tipo de vehículo y estado activo/inactivo
+- Asignación a órdenes de envío
+- Filtrado por estado activo
+
 ### Facturación
 - Generación de facturas agrupando todos los `ServicioPrestado` pendientes de un cliente
 - Selección opcional de servicios específicos para incluir
