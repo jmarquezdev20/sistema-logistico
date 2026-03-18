@@ -24,17 +24,14 @@ El sistema opera con tres roles diferenciados — **administrador**, **empleado*
 
 **Funcionalidades principales:**
 
-Control de inventario en tiempo real con registro de   entradas y salidas
- Gestión de órdenes de envío con despacho automático que
-descuenta stock
- Facturación automática agrupando servicios prestados
-pendientes
- Envío de correo electrónico con credenciales al crear
-usuarios
- Cambio de contraseña desde el login
- Auditoría completa de todas las acciones del sistema
- Generación y descarga de facturas en PDF
- Dashboard con métricas en tiempo real por rol
+- Control de inventario en tiempo real con registro de entradas y salidas
+- Gestión de órdenes de envío con despacho automático que descuenta stock
+- Facturación automática agrupando servicios prestados pendientes
+- Envío de correo electrónico con credenciales al crear usuarios
+- Cambio de contraseña desde el login
+- Auditoría completa de todas las acciones del sistema
+- Generación y descarga de facturas en PDF
+- Dashboard con métricas en tiempo real por rol
 
 ---
 
@@ -221,6 +218,8 @@ python manage.py test servicios.tests --verbosity=2
 python manage.py test transportadores.tests --verbosity=2
 python manage.py test auditoria.tests --verbosity=2
 python manage.py test usuarios.tests --verbosity=2
+python manage.py test clientes.tests --verbosity=2
+python manage.py test infraestructura_bodegas.tests --verbosity=2
 ```
 
 **Ejecutar un archivo específico:**
@@ -242,8 +241,8 @@ python manage.py test inventario.tests.test_views.MovimientoInventarioViewSetTes
 
 ```bash
 # Clonar repositorio
-git clone https://github.com/tuusuario/sistema_logistico.git
-cd sistema_logistico
+git clone https://github.com/jmarquezdev20/sistema-logistico.git
+cd sistema-logistico
 
 # Levantar contenedores
 docker-compose up --build
