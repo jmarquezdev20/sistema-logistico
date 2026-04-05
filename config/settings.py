@@ -1,13 +1,16 @@
 from pathlib import Path
 from datetime import timedelta
 import os
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-this-in-production')
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = ['*']
+# ── Seguridad ─────────────────────────────────────────────────
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
+# ── Aplicaciones ──────────────────────────────────────────────
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,9 +43,10 @@ LOCAL_APPS = [
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
+# ── Middleware ────────────────────────────────────────────────
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # MUY IMPORTANTE
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -72,35 +76,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-import dj_database_url
-
-#CONFIGURACIÓN PARA RENDER
+# ── Base de datos ─────────────────────────────────────────────
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3'
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600,
+        conn_health_checks=True,
     )
 }
 
-'''
-ESTO ES PARA LOCAL
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'logistico_db',
-        'USER': 'postgres',
-        'PASSWORD': '12345',
-        'HOST': 'localhost',
-        'PORT': '5432',
-        'OPTIONS': {
-            'client_encoding': 'UTF8',
-        },
-    }
-}
-
-'''
-
-
-
+# ── Autenticación ─────────────────────────────────────────────
 AUTH_USER_MODEL = 'usuarios.User'
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -110,11 +95,13 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
+# ── Internacionalización ──────────────────────────────────────
 LANGUAGE_CODE = 'es-co'
 TIME_ZONE = 'America/Bogota'
 USE_I18N = True
 USE_TZ = True
 
+# ── Archivos estáticos ────────────────────────────────────────
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -144,15 +131,13 @@ SIMPLE_JWT = {
 }
 
 # ── CORS ──────────────────────────────────────────────────────
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-]
+CORS_ALLOWED_ORIGINS = os.environ.get(
+    'CORS_ALLOWED_ORIGINS',
+    'http://localhost:5173,http://127.0.0.1:5173'
+).split(',')
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOW_ALL_ORIGINS = True
-
-# ── Spectacular ───────────────────────────────────────────────
+# ── Spectacular (Documentación API) ──────────────────────────
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Sistema Logístico API',
     'DESCRIPTION': 'API REST para el Sistema de Gestión de Bodegas y Servicios Logísticos',
@@ -161,31 +146,10 @@ SPECTACULAR_SETTINGS = {
 }
 
 # ── Correo electrónico ────────────────────────────────────────
-#
-# Para DESARROLLO (muestra el correo en la terminal, no lo envía):
-#   Cambia EMAIL_BACKEND a la línea de consola de abajo.
-#
-# Para PRODUCCIÓN con Gmail:
-#   1. Activa "Verificación en 2 pasos" en tu cuenta Google.
-#   2. Ve a: Google Account → Seguridad → Contraseñas de aplicación.
-#   3. Genera una para "Correo / Windows" y pégala en EMAIL_HOST_PASSWORD.
-#   4. Reemplaza EMAIL_HOST_USER y DEFAULT_FROM_EMAIL con tu Gmail.
-#
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # ← desarrollo
-
-EMAIL_HOST          = 'smtp.gmail.com'
-EMAIL_PORT          = 587
-EMAIL_USE_TLS       = True
-EMAIL_HOST_USER     = os.environ.get('EMAIL_HOST_USER', 'juanmanuelmarquezjimenez9@gmail.com')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL  = f'Logística <{os.environ.get("EMAIL_HOST_USER", "juanmanuelmarquezjimenez9@gmail.com")}>'
-
-
-# Fix SSL Python 3.13 Windows
-import ssl
-_ssl_context = ssl.create_default_context()
-_ssl_context.check_hostname = False
-_ssl_context.verify_mode = ssl.CERT_NONE
-from django.core.mail.backends import smtp as _smtp_backend
-_smtp_backend.EmailBackend.ssl_context = _ssl_context
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = f'Logística <{os.environ.get("EMAIL_HOST_USER", "")}>'
