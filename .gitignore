@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Entornos virtuales
+venv/
+env/
+.venv/
+
+# Base de datos local
+db.sqlite3
+
+# Archivos de entorno
+.env
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Archivos de VSCode
+.vscode/
+
+# Archivos de JetBrains
+.idea/
+
+# Archivos temporales
+*.swp
+
+# Static files (opcional si quieres evitar subirlos)
+staticfiles/
+
+# Media (si manejas uploads)
+media/
+
+# Docker (si no los vas a usar)
+docker-compose.yml
+Dockerfile*
