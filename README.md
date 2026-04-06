@@ -302,10 +302,10 @@ npm run dev
 
 | Servicio | URL |
 |---------|-----|
-| Frontend | http://localhost:5173 |
-| API REST | http://localhost:8000/api/ |
+| Frontend | https://sistema-logistico-frontend.onrender.com/login |
+| API REST | https://sistema-logistico-1-pxsm.onrender.com/api/ |
 | Swagger | https://sistema-logistico-1-pxsm.onrender.com/api/docs/|
-| Admin Django | http://localhost:8000/admin/ |
+| Admin Django | https://sistema-logistico-1-pxsm.onrender.com/admin/ |
 
 ---
 
