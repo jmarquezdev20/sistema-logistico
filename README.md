@@ -304,7 +304,7 @@ npm run dev
 |---------|-----|
 | Frontend | http://localhost:5173 |
 | API REST | http://localhost:8000/api/ |
-| Swagger | http://localhost:8000/api/docs/ |
+| Swagger | https://sistema-logistico-1-pxsm.onrender.com/api/docs/|
 | Admin Django | http://localhost:8000/admin/ |
 
 ---
