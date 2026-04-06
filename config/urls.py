@@ -1,24 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.http import JsonResponse
-from drf_spectacular.views import (
-    SpectacularAPIView,
-    SpectacularSwaggerView,
-    SpectacularRedocView
-)
-
-# ✅ Vista raíz (para evitar "Not Found")
-def home(request):
-    return JsonResponse({
-        "status": "ok",
-        "mensaje": "API Sistema Logístico funcionando 🚀"
-    })
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
 urlpatterns = [
-    # 🔥 Ruta raíz
-    path('', home),
-
-    # Admin
     path('admin/', admin.site.urls),
 
     # API Schema & Docs
