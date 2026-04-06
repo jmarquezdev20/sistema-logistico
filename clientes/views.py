@@ -5,11 +5,20 @@ from auditoria.utils import registrar
 
 
 class ClienteViewSet(viewsets.ModelViewSet):
-    queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['nombre', 'correo']
     ordering_fields = ['nombre', 'fecha_creacion']
+
+    def get_queryset(self):
+        queryset = Cliente.objects.all()
+        activo = self.request.query_params.get('activo')
+        if activo is not None:
+            if activo.lower() == 'true':
+                queryset = queryset.filter(activo=True)
+            elif activo.lower() == 'false':
+                queryset = queryset.filter(activo=False)
+        return queryset
 
     def perform_create(self, serializer):
         obj = serializer.save()
@@ -35,4 +44,3 @@ class ClienteViewSet(viewsets.ModelViewSet):
             accion=f'Eliminó cliente "{instance.nombre}"',
         )
         instance.delete()
-        
