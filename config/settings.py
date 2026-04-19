@@ -128,6 +128,9 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'AUTH_HEADER_TYPES': ('Bearer',),
+    # FIX: indica a SimpleJWT que el campo de login es email
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
 }
 
 # ── CORS ──────────────────────────────────────────────────────
@@ -143,6 +146,9 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'API REST para el Sistema de Gestión de Bodegas y Servicios Logísticos',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    # FIX: muestra correctamente los schemas de request/response en Swagger
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SCHEMA_PATH_PREFIX': '/api/',
 }
 
 # ── Correo electrónico ────────────────────────────────────────
@@ -153,3 +159,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = f'Logística <{os.environ.get("EMAIL_HOST_USER", "")}>'
+
+# ── Frontend URL (usado en correos de bienvenida) ─────────────
+# FIX: ya no está hardcodeado en views.py
+FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://localhost:5173')
