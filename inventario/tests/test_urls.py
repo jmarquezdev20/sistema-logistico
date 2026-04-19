@@ -1,15 +1,13 @@
 """
-======================================================================
   PRUEBAS DE URLs — Módulo Inventario
   Sistema: BodegaXpress - Gestión Logística
   Autor:   Juan Manuel Márquez
-======================================================================
+
   Cubre:
-    ✔ Resolución correcta de todas las rutas del módulo
-    ✔ Nombres de rutas (basename) para productos, inventarios
+    Resolución correcta de todas las rutas del módulo
+    Nombres de rutas (basename) para productos, inventarios
       y movimientos
-    ✔ Métodos HTTP permitidos por endpoint
-======================================================================
+    Métodos HTTP permitidos por endpoint
 """
 
 import uuid
@@ -22,8 +20,7 @@ from inventario import views
 class InventarioURLTest(TestCase):
     """Pruebas de resolución de URLs del módulo inventario."""
 
-    # ── Productos ──────────────────────────────────────────────────
-
+    # Productos
     def test_url_lista_productos_resuelve(self):
         """La URL /api/inventario/productos/ resuelve correctamente."""
         url = '/api/inventario/productos/'
@@ -49,8 +46,7 @@ class InventarioURLTest(TestCase):
         self.assertIn('/productos/', url)
         self.assertIn(pk, url)
 
-    # ── Inventarios ────────────────────────────────────────────────
-
+    # Inventarios 
     def test_url_lista_inventarios_resuelve(self):
         """La URL /api/inventario/inventarios/ resuelve correctamente."""
         url = '/api/inventario/inventarios/'
@@ -76,7 +72,7 @@ class InventarioURLTest(TestCase):
         self.assertIn('/inventarios/', url)
         self.assertIn(pk, url)
 
-    # ── Movimientos ────────────────────────────────────────────────
+    # Movimientos
 
     def test_url_lista_movimientos_resuelve(self):
         """La URL /api/inventario/movimientos/ resuelve correctamente."""
@@ -103,8 +99,7 @@ class InventarioURLTest(TestCase):
         self.assertIn('/movimientos/', url)
         self.assertIn(pk, url)
 
-    # ── Estructura general ─────────────────────────────────────────
-
+    # Estructura general
     def test_todas_las_rutas_bajo_prefijo_inventario(self):
         """Todas las rutas del módulo están bajo /api/inventario/."""
         rutas = [

@@ -1,9 +1,8 @@
 """
-======================================================================
   PRUEBAS DE VISTAS — Módulo Usuarios
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     login            - JWT con email, credenciales invalidas
     me               - datos del usuario autenticado
@@ -12,7 +11,6 @@
     cambiar_password - cambio de contrasena, validaciones
     UsuarioViewSet   - CRUD solo admin
     permissions      - EsAdmin, EsEmpleadoOAdmin, EsCliente
-======================================================================
 """
 
 import uuid
@@ -23,7 +21,7 @@ from rest_framework import status
 from usuarios.models import User, Rol
 
 
-# -- Helpers ----------------------------------------------------------
+# Helpers
 
 def crear_rol(nombre='admin'):
     rol, _ = Rol.objects.get_or_create(nombre=nombre)
@@ -52,7 +50,7 @@ def autenticar(client, email, password='testpass123'):
     return response
 
 
-# -- Tests: Login -----------------------------------------------------
+# Tests: Login 
 
 class LoginTest(APITestCase):
     """Pruebas del endpoint de login."""
@@ -105,8 +103,7 @@ class LoginTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-# -- Tests: Me --------------------------------------------------------
-
+# Tests: Me
 class MeViewTest(APITestCase):
     """Pruebas del endpoint me/."""
 
@@ -137,7 +134,7 @@ class MeViewTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-# -- Tests: Logout ----------------------------------------------------
+# Tests: Logout 
 
 class LogoutViewTest(APITestCase):
     """Pruebas del endpoint logout."""
@@ -158,8 +155,7 @@ class LogoutViewTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-# -- Tests: Crear Usuario ---------------------------------------------
-
+# Tests: Crear Usuario 
 class CrearUsuarioTest(APITestCase):
     """Pruebas del endpoint crear_usuario."""
 
@@ -257,8 +253,7 @@ class CrearUsuarioTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
-# -- Tests: Cambiar Password ------------------------------------------
-
+#  Tests: Cambiar Password 
 class CambiarPasswordTest(APITestCase):
     """Pruebas del endpoint cambiar_password."""
 
@@ -335,7 +330,7 @@ class CambiarPasswordTest(APITestCase):
         self.assertTrue(self.user.check_password('passoriginal123'))
 
 
-# -- Tests: UsuarioViewSet --------------------------------------------
+# Tests: UsuarioViewSet 
 
 class UsuarioViewSetTest(APITestCase):
     """Pruebas del UsuarioViewSet."""
@@ -377,7 +372,7 @@ class UsuarioViewSetTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
-# -- Tests: Permissions -----------------------------------------------
+# Tests: Permissions
 
 class PermissionsTest(APITestCase):
     """Pruebas de las clases de permisos."""

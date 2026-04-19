@@ -1,12 +1,10 @@
 """
-======================================================================
   PRUEBAS DE SERIALIZERS — Módulo Pagos
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     PagoSerializer - campos, read_only, cliente_nombre, factura_numero
-======================================================================
 """
 
 from decimal import Decimal
@@ -20,8 +18,7 @@ from pagos.serializers import PagoSerializer
 from usuarios.models import User, Rol
 
 
-# -- Helpers ----------------------------------------------------------
-
+# Helpers
 def crear_rol(nombre='admin'):
     rol, _ = Rol.objects.get_or_create(nombre=nombre)
     return rol
@@ -73,7 +70,7 @@ def crear_pago(cliente, factura=None, metodo='transferencia'):
     )
 
 
-# -- Tests: PagoSerializer --------------------------------------------
+# Tests: PagoSerializer 
 
 class PagoSerializerTest(TestCase):
     """Pruebas para PagoSerializer."""

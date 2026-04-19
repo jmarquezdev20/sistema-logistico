@@ -1,14 +1,12 @@
 """
-======================================================================
   PRUEBAS DE SERIALIZERS — Módulo Inventario
   Sistema: BodegaXpress - Gestión Logística
   Autor:   Juan Manuel Márquez
-======================================================================
+
   Cubre:
-    ✔ ProductoSerializer        — campos, validaciones, read_only
-    ✔ InventarioSerializer      — campos calculados, read_only
-    ✔ MovimientoInventarioSerializer — campos de envío, método fields
-======================================================================
+    ProductoSerializer        — campos, validaciones, read_only
+    InventarioSerializer      — campos calculados, read_only
+    MovimientoInventarioSerializer — campos de envío, método fields
 """
 
 from django.test import TestCase
@@ -23,7 +21,7 @@ from clientes.models import Cliente
 from infraestructura_bodegas.models import Bodega, Ubicacion
 
 
-# ── Helpers ──────────────────────────────────────────────────────────
+# Helpers 
 
 def crear_cliente(nombre='Cliente Serializer'):
     return Cliente.objects.create(
@@ -66,7 +64,7 @@ def crear_inventario(producto=None, ubicacion=None, cantidad=10):
     )
 
 
-# ── Tests: ProductoSerializer ─────────────────────────────────────────
+# Tests: ProductoSerializer
 
 class ProductoSerializerTest(TestCase):
     """Pruebas para ProductoSerializer."""
@@ -128,7 +126,7 @@ class ProductoSerializerTest(TestCase):
         self.assertIsInstance(serializer.data['id'], str)
 
 
-# ── Tests: InventarioSerializer ───────────────────────────────────────
+# Tests: InventarioSerializer
 
 class InventarioSerializerTest(TestCase):
     """Pruebas para InventarioSerializer."""
@@ -183,7 +181,7 @@ class InventarioSerializerTest(TestCase):
         self.assertTrue(field.read_only)
 
 
-# ── Tests: MovimientoInventarioSerializer ────────────────────────────
+# Tests: MovimientoInventarioSerializer
 
 class MovimientoInventarioSerializerTest(TestCase):
     """Pruebas para MovimientoInventarioSerializer."""

@@ -28,9 +28,8 @@ class ClienteViewSetTest(APITestCase):
         self.url_list = reverse("cliente-list")
         self.url_detail = reverse("cliente-detail", args=[self.cliente.id])
 
-    # =========================
-    # 📥 LISTAR
-    # =========================
+    # LISTAR
+   
     @patch('clientes.views.registrar')
     def test_listar_clientes(self, mock_registrar):
         response = self.client.get(self.url_list)
@@ -40,9 +39,9 @@ class ClienteViewSetTest(APITestCase):
         data = response.data["results"] if "results" in response.data else response.data
         self.assertGreaterEqual(len(data), 1)
 
-    # =========================
-    # ➕ CREAR
-    # =========================
+   
+    #CREAR
+  
     @patch('clientes.views.registrar')
     def test_crear_cliente(self, mock_registrar):
         data = {
@@ -67,9 +66,8 @@ class ClienteViewSetTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    # =========================
-    # ✏️ ACTUALIZAR
-    # =========================
+   
+    #ACTUALIZAR
     @patch('clientes.views.registrar')
     def test_actualizar_cliente(self, mock_registrar):
         data = {
@@ -99,9 +97,8 @@ class ClienteViewSetTest(APITestCase):
 
         mock_registrar.assert_called_once()
 
-    # =========================
-    # ❌ ELIMINAR
-    # =========================
+    
+    # ELIMINAR
     @patch('clientes.views.registrar')
     def test_eliminar_cliente(self, mock_registrar):
         response = self.client.delete(self.url_detail)
@@ -117,9 +114,7 @@ class ClienteViewSetTest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-    # =========================
-    # 🔍 BUSQUEDA
-    # =========================
+    #BUSQUEDA
     @patch('clientes.views.registrar')
     def test_busqueda_cliente(self, mock_registrar):
         Cliente.objects.create(nombre="Pedro", correo="pedro@test.com")
@@ -132,9 +127,7 @@ class ClienteViewSetTest(APITestCase):
         self.assertEqual(len(data), 1)
         self.assertEqual(data[0]["nombre"], "Pedro")
 
-    # =========================
-    # 🔢 ORDENAMIENTO
-    # =========================
+    # ORDENAMIENTO
     @patch('clientes.views.registrar')
     def test_ordenamiento_clientes(self, mock_registrar):
         Cliente.objects.create(nombre="Zeta", correo="z@test.com")
@@ -146,9 +139,7 @@ class ClienteViewSetTest(APITestCase):
 
         self.assertEqual(data[0]["nombre"], "Alpha")
 
-    # =========================
-    # 🔒 AUTENTICACION
-    # =========================
+    # AUTENTICACION
     def test_acceso_sin_autenticacion(self):
         self.client.force_authenticate(user=None)
 

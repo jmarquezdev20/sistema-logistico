@@ -1,13 +1,12 @@
 """
-======================================================================
   PRUEBAS DE URLs — Módulo Servicios
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     - Resolucion de rutas de catalogo y servicios prestados
     - Nombres de rutas (basename)
-======================================================================
+
 """
 
 import uuid
@@ -20,7 +19,7 @@ from servicios import views
 class ServiciosURLTest(TestCase):
     """Pruebas de resolucion de URLs del modulo servicios."""
 
-    # -- Catalogo -----------------------------------------------------
+    # Catalogo 
 
     def test_url_lista_catalogo_resuelve(self):
         """La URL /api/servicios/catalogo/ resuelve correctamente."""
@@ -45,7 +44,7 @@ class ServiciosURLTest(TestCase):
         self.assertIn('/catalogo/', url)
         self.assertIn(pk, url)
 
-    # -- Servicios Prestados ------------------------------------------
+    # Servicios Prestados 
 
     def test_url_lista_prestados_resuelve(self):
         """La URL /api/servicios/prestados/ resuelve correctamente."""
@@ -70,8 +69,7 @@ class ServiciosURLTest(TestCase):
         self.assertIn('/prestados/', url)
         self.assertIn(pk, url)
 
-    # -- Estructura general -------------------------------------------
-
+    # Estructura general 
     def test_todas_las_rutas_bajo_prefijo_servicios(self):
         """Todas las rutas del modulo estan bajo /api/servicios/."""
         rutas = [

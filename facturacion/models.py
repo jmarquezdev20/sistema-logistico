@@ -33,54 +33,54 @@ class Factura(models.Model):
         estado:            pendiente | pagada | vencida.
     """
 
-    PENDIENTE      = 'pendiente'
-    PAGADA         = 'pagada'
-    VENCIDA        = 'vencida'
+    PENDIENTE = 'pendiente'
+    PAGADA = 'pagada'
+    VENCIDA = 'vencida'
     ESTADO_CHOICES = [
         (PENDIENTE, 'Pendiente'),
-        (PAGADA,    'Pagada'),
-        (VENCIDA,   'Vencida'),
+        (PAGADA,'Pagada'),
+        (VENCIDA,'Vencida'),
     ]
 
-    id                = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    cliente           = models.ForeignKey(
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    cliente = models.ForeignKey(
         Cliente,
         on_delete=models.CASCADE,
         related_name='facturas',
         help_text='Cliente al que se emite la factura.',
     )
-    numero_factura    = models.CharField(
+    numero_factura = models.CharField(
         max_length=20,
         unique=True,
         blank=True,
         help_text='Generado automáticamente en formato FAC-XXXX.',
     )
-    fecha_emision     = models.DateField(
+    fecha_emision = models.DateField(
         auto_now_add=True,
         help_text='Fecha de creación de la factura (automática).',
     )
     fecha_vencimiento = models.DateField(
         help_text='Fecha límite de pago.',
     )
-    subtotal          = models.DecimalField(
+    subtotal = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         default=0,
         help_text='Suma de todos los servicios antes de impuestos.',
     )
-    impuestos         = models.DecimalField(
+    impuestos = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         default=0,
         help_text='IVA del 19% calculado sobre el subtotal.',
     )
-    total             = models.DecimalField(
+    total = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         default=0,
         help_text='Total a pagar: subtotal + impuestos.',
     )
-    estado            = models.CharField(
+    estado = models.CharField(
         max_length=10,
         choices=ESTADO_CHOICES,
         default=PENDIENTE,
@@ -132,9 +132,9 @@ class Factura(models.Model):
         return f'{self.numero_factura} - {self.cliente.nombre}'
 
     class Meta:
-        verbose_name        = 'Factura'
+        verbose_name = 'Factura'
         verbose_name_plural = 'Facturas'
-        ordering            = ['-fecha_emision']
+        ordering = ['-fecha_emision']
 
 
 class DetalleFactura(models.Model):
@@ -154,8 +154,8 @@ class DetalleFactura(models.Model):
         subtotal:          cantidad * valor_unitario.
     """
 
-    id                = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    factura           = models.ForeignKey(
+    id    = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    factura = models.ForeignKey(
         Factura,
         on_delete=models.CASCADE,
         related_name='detalles',
@@ -166,21 +166,21 @@ class DetalleFactura(models.Model):
         on_delete=models.CASCADE,
         help_text='Servicio que origina este detalle.',
     )
-    descripcion       = models.CharField(
+    descripcion = models.CharField(
         max_length=300,
         help_text='Nombre del servicio al momento de facturar.',
     )
-    cantidad          = models.DecimalField(
+    cantidad = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         help_text='Cantidad del servicio prestado.',
     )
-    valor_unitario    = models.DecimalField(
+    valor_unitario = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         help_text='Tarifa unitaria al momento de facturar.',
     )
-    subtotal          = models.DecimalField(
+    subtotal = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         help_text='Total de esta línea: cantidad * valor_unitario.',
@@ -191,5 +191,5 @@ class DetalleFactura(models.Model):
         return f'{self.descripcion} - ${self.subtotal}'
 
     class Meta:
-        verbose_name        = 'Detalle de Factura'
+        verbose_name = 'Detalle de Factura'
         verbose_name_plural = 'Detalles de Factura'

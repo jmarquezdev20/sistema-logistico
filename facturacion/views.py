@@ -403,7 +403,7 @@ def _enviar_correo_pago(factura, correo_cliente: str) -> None:
     filas_txt  = ''
     for d in detalles:
         subtotal_fmt = f"{int(d.subtotal):,}"
-        val_fmt      = f"{int(d.valor_unitario):,}"
+        val_fmt = f"{int(d.valor_unitario):,}"
         filas_html  += f"""
         <tr>
           <td style="padding:11px 16px;border-bottom:1px solid #f0f3f8;color:#1e2a3b;font-size:13px">{d.descripcion}</td>
@@ -469,7 +469,7 @@ Total    : ${int(factura.total):,} COP
 """
 
     msg = EmailMultiAlternatives(
-        subject=f'✅ Pago confirmado — {factura.numero_factura}',
+        subject=f'Pago confirmado — {factura.numero_factura}',
         body=texto,
         from_email=settings.DEFAULT_FROM_EMAIL,
         to=[correo_cliente],

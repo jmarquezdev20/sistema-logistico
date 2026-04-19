@@ -1,13 +1,11 @@
 """
-======================================================================
   PRUEBAS DE URLs — Módulo Pagos
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+  
   Cubre:
     - Resolucion de rutas del modulo pagos
     - Nombres de rutas (basename)
-======================================================================
 """
 
 import uuid

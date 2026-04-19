@@ -1,13 +1,11 @@
 """
-======================================================================
   PRUEBAS DE VISTAS — Módulo Facturacion
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+  
   Cubre:
     FacturaViewSet - listar, generar, marcar_pagada, permisos,
                      filtros por cliente/estado, descarga PDF
-======================================================================
 """
 
 import uuid
@@ -23,7 +21,7 @@ from facturacion.models import Factura, DetalleFactura
 from servicios.models import CatalogoServicio, ServicioPrestado
 
 
-# -- Helpers ----------------------------------------------------------
+# Helpers
 
 def crear_rol(nombre='admin'):
     rol, _ = Rol.objects.get_or_create(nombre=nombre)
@@ -86,7 +84,7 @@ def crear_factura(cliente, estado='pendiente'):
     )
 
 
-# -- Base con autenticacion JWT ---------------------------------------
+# Base con autenticacion JWT
 
 class BaseAPITest(APITestCase):
     """Clase base con autenticacion JWT."""
@@ -105,7 +103,7 @@ class BaseAPITest(APITestCase):
         self.catalogo = crear_catalogo()
 
 
-# -- Tests: FacturaViewSet --------------------------------------------
+# Tests: FacturaViewSet
 
 class FacturaListRetrieveTest(BaseAPITest):
     """Pruebas de listado y detalle de facturas."""

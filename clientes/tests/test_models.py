@@ -23,7 +23,7 @@ class ClienteModelTest(TestCase):
 
     def test_creacion_cliente(self):
         """
-        ✅ Prueba que el cliente se crea correctamente en la base de datos.
+        Prueba que el cliente se crea correctamente en la base de datos.
         Verifica que los valores guardados coincidan con los enviados.
         """
         self.assertEqual(self.cliente.nombre, "Juan Pérez")  # El nombre debe coincidir
@@ -32,14 +32,14 @@ class ClienteModelTest(TestCase):
 
     def test_str_devuelve_nombre(self):
         """
-        ✅ Prueba el método __str__ del modelo.
+        Prueba el método __str__ del modelo.
         Esto es importante para el admin de Django y logs.
         """
         self.assertEqual(str(self.cliente), "Juan Pérez")
 
     def test_correo_unico(self):
         """
-        ❌ Prueba que NO se pueden crear dos clientes con el mismo correo.
+        Prueba que NO se pueden crear dos clientes con el mismo correo.
         Esperamos que Django lance un error de integridad (IntegrityError).
         """
         with self.assertRaises(IntegrityError):
@@ -50,7 +50,7 @@ class ClienteModelTest(TestCase):
 
     def test_id_es_uuid(self):
         """
-        ✅ Verifica que el ID generado sea de tipo UUID.
+        Verifica que el ID generado sea de tipo UUID.
         Esto es importante porque no usamos enteros como ID.
         """
         import uuid
@@ -58,7 +58,7 @@ class ClienteModelTest(TestCase):
 
     def test_ordenamiento_por_fecha(self):
         """
-        ✅ Verifica que los clientes se ordenan por fecha_creacion DESC.
+        Verifica que los clientes se ordenan por fecha_creacion DESC.
         (el más reciente debe aparecer primero)
         """
         cliente2 = Cliente.objects.create(

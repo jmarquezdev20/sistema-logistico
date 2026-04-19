@@ -1,12 +1,10 @@
 """
-======================================================================
   PRUEBAS DE SERIALIZERS — Módulo Transportadores
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     TransportadorSerializer - campos, read_only, validaciones
-======================================================================
 """
 
 from django.test import TestCase
@@ -15,7 +13,7 @@ from transportadores.models import Transportador
 from transportadores.serializers import TransportadorSerializer
 
 
-# -- Helpers ----------------------------------------------------------
+# Helpers 
 
 def crear_transportador(nombre='Trans Ser', placa='SER001', tipo='camion'):
     return Transportador.objects.create(
@@ -27,7 +25,7 @@ def crear_transportador(nombre='Trans Ser', placa='SER001', tipo='camion'):
     )
 
 
-# -- Tests: TransportadorSerializer -----------------------------------
+# Tests: TransportadorSerializer
 
 class TransportadorSerializerTest(TestCase):
     """Pruebas para TransportadorSerializer."""

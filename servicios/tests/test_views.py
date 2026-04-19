@@ -1,14 +1,11 @@
 """
-======================================================================
   PRUEBAS DE VISTAS — Módulo Servicios
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
   Cubre:
     CatalogoServicioViewSet  - CRUD, filtros, permisos
     ServicioPrestadoViewSet  - crear, listar, filtros por cliente,
                                facturado, fecha, calculo automatico
-======================================================================
 """
 
 import uuid
@@ -22,7 +19,7 @@ from clientes.models import Cliente
 from servicios.models import CatalogoServicio, ServicioPrestado
 
 
-# -- Helpers ----------------------------------------------------------
+# Helpers 
 
 def crear_rol(nombre='admin'):
     rol, _ = Rol.objects.get_or_create(nombre=nombre)
@@ -73,7 +70,7 @@ def crear_servicio(cliente, catalogo, facturado=False, fecha=None):
     )
 
 
-# -- Base con autenticacion JWT ---------------------------------------
+# Base con autenticacion JWT 
 
 class BaseAPITest(APITestCase):
     def setUp(self):
@@ -90,7 +87,7 @@ class BaseAPITest(APITestCase):
         self.catalogo = crear_catalogo()
 
 
-# -- Tests: CatalogoServicioViewSet -----------------------------------
+# Tests: CatalogoServicioViewSet
 
 class CatalogoServicioViewSetTest(BaseAPITest):
     """Pruebas de la vista CatalogoServicioViewSet."""
@@ -155,7 +152,7 @@ class CatalogoServicioViewSetTest(BaseAPITest):
         self.assertIn('unidad_display', response.data)
 
 
-# -- Tests: ServicioPrestadoViewSet -----------------------------------
+# -- Tests: ServicioPrestadoViewSet 
 
 class ServicioPrestadoViewSetTest(BaseAPITest):
     """Pruebas de la vista ServicioPrestadoViewSet."""

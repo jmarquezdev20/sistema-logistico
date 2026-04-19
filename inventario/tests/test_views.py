@@ -1,14 +1,11 @@
 """
-======================================================================
   PRUEBAS DE VISTAS — Módulo Inventario
   Sistema: BodegaXpress - Gestión Logística
   Autor:   Juan Manuel Márquez
-======================================================================
   Cubre:
-    ✔ ProductoViewSet      — CRUD, filtros, validaciones de negocio
-    ✔ InventarioViewSet    — listado, filtros, métodos no permitidos
-    ✔ MovimientoViewSet    — entradas, salidas, stock, producto nuevo
-======================================================================
+    ProductoViewSet      — CRUD, filtros, validaciones de negocio
+    InventarioViewSet    — listado, filtros, métodos no permitidos
+    MovimientoViewSet    — entradas, salidas, stock, producto nuevo
 """
 
 import uuid
@@ -22,7 +19,7 @@ from infraestructura_bodegas.models import Bodega, Ubicacion
 from inventario.models import Producto, Inventario, MovimientoInventario
 
 
-# ── Helpers ──────────────────────────────────────────────────────────
+# Helpers
 
 def crear_rol(nombre='admin'):
     rol, _ = Rol.objects.get_or_create(nombre=nombre)
@@ -79,7 +76,7 @@ def crear_inventario(producto, ubicacion, cantidad=100):
     )
 
 
-# ── Base con autenticación JWT ────────────────────────────────────────
+# Base con autenticación JWT
 
 class BaseAPITest(APITestCase):
     """Clase base: autentica el cliente con JWT antes de cada test."""
@@ -100,8 +97,7 @@ class BaseAPITest(APITestCase):
         self.ubicacion = crear_ubicacion(self.bodega, 'V-01', 500)
 
 
-# ── Tests: ProductoViewSet ────────────────────────────────────────────
-
+# Tests: ProductoViewSet 
 class ProductoViewSetTest(BaseAPITest):
     """Pruebas de la vista ProductoViewSet."""
 
@@ -207,8 +203,7 @@ class ProductoViewSetTest(BaseAPITest):
         self.assertEqual(response.data['nombre'], 'Detalle Test')
 
 
-# ── Tests: InventarioViewSet ──────────────────────────────────────────
-
+# Tests: InventarioViewSet 
 class InventarioViewSetTest(BaseAPITest):
     """Pruebas de la vista InventarioViewSet."""
 
@@ -277,7 +272,7 @@ class InventarioViewSetTest(BaseAPITest):
         self.assertEqual(response.data['cantidad'], 50)
 
 
-# ── Tests: MovimientoInventarioViewSet ────────────────────────────────
+# Tests: MovimientoInventarioViewSet 
 
 class MovimientoInventarioViewSetTest(BaseAPITest):
     """Pruebas de la vista MovimientoInventarioViewSet."""

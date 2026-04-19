@@ -1,13 +1,11 @@
 """
-======================================================================
   PRUEBAS DE VISTAS — Módulo Pagos
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     PagoViewSet - listar, crear, filtros, permisos,
                   validacion factura pagada, metodos no permitidos
-======================================================================
 """
 
 import uuid
@@ -23,7 +21,7 @@ from facturacion.models import Factura
 from pagos.models import Pago
 
 
-# -- Helpers ----------------------------------------------------------
+# Helpers
 
 def crear_rol(nombre='admin'):
     rol, _ = Rol.objects.get_or_create(nombre=nombre)
@@ -76,7 +74,7 @@ def crear_pago(cliente, factura=None, metodo='transferencia'):
     )
 
 
-# -- Base con autenticacion JWT ---------------------------------------
+# Base con autenticacion JWT 
 
 class BaseAPITest(APITestCase):
     """Clase base con autenticacion JWT."""
@@ -94,7 +92,7 @@ class BaseAPITest(APITestCase):
         self.cliente = crear_cliente()
 
 
-# -- Tests: PagoViewSet -----------------------------------------------
+# Tests: PagoViewSet
 
 class PagoListTest(BaseAPITest):
     """Pruebas de listado de pagos."""

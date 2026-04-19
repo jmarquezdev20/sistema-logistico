@@ -1,13 +1,10 @@
 """
-======================================================================
   PRUEBAS DE MODELOS — Módulo Envios
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
   Cubre:
     OrdenEnvio    - creacion, estados, __str__, ordering
     EnvioProducto - creacion, relaciones, cantidad minima, __str__
-======================================================================
 """
 
 import uuid
@@ -21,7 +18,7 @@ from infraestructura_bodegas.models import Bodega, Ubicacion
 from envios.models import OrdenEnvio, EnvioProducto
 
 
-# -- Helpers ----------------------------------------------------------
+#Helpers 
 
 def crear_cliente(nombre='Cliente Envio'):
     return Cliente.objects.create(
@@ -72,7 +69,7 @@ def crear_orden(cliente=None, transportador=None, estado='pendiente'):
     )
 
 
-# -- Tests: OrdenEnvio ------------------------------------------------
+#Tests: OrdenEnvio
 
 class OrdenEnvioModelTest(TestCase):
     """Pruebas unitarias para el modelo OrdenEnvio."""
@@ -165,7 +162,7 @@ class OrdenEnvioModelTest(TestCase):
         self.assertEqual(orden.transportador.id, self.transportador.id)
 
 
-# -- Tests: EnvioProducto ---------------------------------------------
+#Tests: EnvioProducto 
 
 class EnvioProductoModelTest(TestCase):
     """Pruebas unitarias para el modelo EnvioProducto."""

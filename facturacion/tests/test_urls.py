@@ -21,7 +21,7 @@ from facturacion import views
 class FacturaURLTest(TestCase):
     """Pruebas de resolucion de URLs del modulo facturacion."""
 
-    # -- Rutas estandar -----------------------------------------------
+    # Rutas estandar
 
     def test_url_lista_facturas_resuelve(self):
         """La URL /api/facturacion/facturas/ resuelve correctamente."""
@@ -46,7 +46,7 @@ class FacturaURLTest(TestCase):
         self.assertIn('/facturas/', url)
         self.assertIn(pk, url)
 
-    # -- Endpoints personalizados -------------------------------------
+    # Endpoints personalizados 
 
     def test_url_generar_resuelve(self):
         """La URL /api/facturacion/facturas/generar/ resuelve correctamente."""
@@ -82,7 +82,7 @@ class FacturaURLTest(TestCase):
         url = reverse('factura-descargar-pdf', kwargs={'pk': pk})
         self.assertIn('pdf', url)
 
-    # -- Estructura general -------------------------------------------
+    # Estructura general
 
     def test_todas_las_rutas_bajo_prefijo_facturacion(self):
         """Todas las rutas del modulo estan bajo /api/facturacion/."""

@@ -7,7 +7,7 @@ class ClienteSerializerTest(TestCase):
 
     def test_serializer_valido(self):
         """
-        ✅ Verifica que datos correctos pasan la validación
+        Verifica que datos correctos pasan la validación
         """
         data = {
             "nombre": "Carlos",
@@ -23,7 +23,7 @@ class ClienteSerializerTest(TestCase):
 
     def test_serializer_invalido_sin_nombre(self):
         """
-        ❌ Falta el campo obligatorio 'nombre'
+        Falta el campo obligatorio 'nombre'
         """
         data = {
             "correo": "carlos@test.com"
@@ -36,7 +36,7 @@ class ClienteSerializerTest(TestCase):
 
     def test_serializer_correo_invalido(self):
         """
-        ❌ Correo con formato incorrecto
+        Correo con formato incorrecto
         """
         data = {
             "nombre": "Carlos",
@@ -50,7 +50,7 @@ class ClienteSerializerTest(TestCase):
 
     def test_serializer_correo_duplicado(self):
         """
-        ❌ No permite correos duplicados
+        No permite correos duplicados
         """
         Cliente.objects.create(
             nombre="Juan",
@@ -69,7 +69,7 @@ class ClienteSerializerTest(TestCase):
 
     def test_campos_read_only(self):
         """
-        🔒 Verifica que no se puedan modificar campos de solo lectura
+        Verifica que no se puedan modificar campos de solo lectura
         """
         data = {
             "id": "1234",

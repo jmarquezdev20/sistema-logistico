@@ -1,13 +1,11 @@
 """
-======================================================================
   PRUEBAS DE SERIALIZERS — Módulo Servicios
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     CatalogoServicioSerializer  - campos, unidad_display, read_only
     ServicioPrestadoSerializer  - campos calculados, valor_total
-======================================================================
 """
 
 from decimal import Decimal
@@ -19,7 +17,7 @@ from servicios.models import CatalogoServicio, ServicioPrestado
 from servicios.serializers import CatalogoServicioSerializer, ServicioPrestadoSerializer
 
 
-# -- Helpers ----------------------------------------------------------
+# Helpers 
 
 def crear_cliente(nombre='Cliente Ser Serv'):
     return Cliente.objects.create(
@@ -57,7 +55,7 @@ def crear_servicio(cliente=None, catalogo=None):
     )
 
 
-# -- Tests: CatalogoServicioSerializer --------------------------------
+# Tests: CatalogoServicioSerializer 
 
 class CatalogoServicioSerializerTest(TestCase):
     """Pruebas para CatalogoServicioSerializer."""
@@ -132,7 +130,7 @@ class CatalogoServicioSerializerTest(TestCase):
         self.assertIn('unidad', serializer.errors)
 
 
-# -- Tests: ServicioPrestadoSerializer --------------------------------
+# Tests: ServicioPrestadoSerializer
 
 class ServicioPrestadoSerializerTest(TestCase):
     """Pruebas para ServicioPrestadoSerializer."""

@@ -1,13 +1,12 @@
 """
-======================================================================
+
   PRUEBAS DE SERIALIZERS — Módulo Auditoria
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     RegistroAuditoriaSerializer - campos calculados, usuario_nombre,
                                   usuario_email, modulo_label
-======================================================================
 """
 
 from django.test import TestCase
@@ -17,7 +16,7 @@ from auditoria.serializers import RegistroAuditoriaSerializer
 from usuarios.models import User, Rol
 
 
-# -- Helpers ----------------------------------------------------------
+# Helpers
 
 def crear_rol(nombre='admin'):
     rol, _ = Rol.objects.get_or_create(nombre=nombre)
@@ -49,7 +48,7 @@ def crear_registro(usuario=None, modulo='inventario', accion='Test accion'):
     )
 
 
-# -- Tests: RegistroAuditoriaSerializer -------------------------------
+# Tests: RegistroAuditoriaSerializer
 
 class RegistroAuditoriaSerializerTest(TestCase):
     """Pruebas para RegistroAuditoriaSerializer."""

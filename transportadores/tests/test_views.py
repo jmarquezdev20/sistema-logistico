@@ -1,13 +1,11 @@
 """
-======================================================================
   PRUEBAS DE VISTAS — Módulo Transportadores
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     TransportadorViewSet - CRUD completo, busqueda, filtros,
                            autenticacion, casos de error
-======================================================================
 """
 
 import uuid
@@ -19,7 +17,7 @@ from usuarios.models import User, Rol
 from transportadores.models import Transportador
 
 
-# -- Helpers ----------------------------------------------------------
+# Helpers
 
 def crear_rol(nombre='admin'):
     rol, _ = Rol.objects.get_or_create(nombre=nombre)
@@ -48,8 +46,7 @@ def crear_transportador(nombre='Trans Views', placa='VIE001', tipo='camion', act
     )
 
 
-# -- Base con autenticacion JWT ---------------------------------------
-
+# Base con autenticacion JWT 
 class BaseAPITest(APITestCase):
     def setUp(self):
         self.client = APIClient()
@@ -63,9 +60,7 @@ class BaseAPITest(APITestCase):
             self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
 
 
-# -- Tests: TransportadorViewSet --------------------------------------
-
-class TransportadorListCreateTest(BaseAPITest):
+# Tests: TransportadorViewSet 
     """Pruebas de listado y creacion de transportadores."""
 
     BASE_URL = '/api/transportadores/'

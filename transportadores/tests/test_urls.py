@@ -1,13 +1,11 @@
 """
-======================================================================
   PRUEBAS DE URLs — Módulo Transportadores
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     - Resolucion de rutas del modulo transportadores
     - Nombres de rutas (basename)
-======================================================================
 """
 
 import uuid

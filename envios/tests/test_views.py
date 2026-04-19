@@ -1,13 +1,10 @@
 """
-======================================================================
   PRUEBAS DE VISTAS — Módulo Envios
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
   Cubre:
     OrdenEnvioViewSet    - CRUD, despachar, filtros, permisos
     EnvioProductoViewSet - listar, crear, eliminar
-======================================================================
 """
 
 import uuid
@@ -24,8 +21,7 @@ from infraestructura_bodegas.models import Bodega, Ubicacion
 from envios.models import OrdenEnvio, EnvioProducto
 
 
-# -- Helpers ----------------------------------------------------------
-
+#Helpers
 def crear_rol(nombre='admin'):
     rol, _ = Rol.objects.get_or_create(nombre=nombre)
     return rol
@@ -97,8 +93,7 @@ def crear_orden(cliente, transportador=None, estado='pendiente'):
     )
 
 
-# -- Base con autenticacion JWT ---------------------------------------
-
+#Base con autenticacion JWT
 class BaseAPITest(APITestCase):
     """Clase base con autenticacion JWT."""
 
@@ -117,8 +112,7 @@ class BaseAPITest(APITestCase):
         self.ubicacion = crear_ubicacion()
 
 
-# -- Tests: OrdenEnvioViewSet -----------------------------------------
-
+#Tests: OrdenEnvioViewSet
 class OrdenEnvioListCreateTest(BaseAPITest):
     """Pruebas de listado y creacion de ordenes."""
 
@@ -315,7 +309,7 @@ class OrdenEnvioDespacharTest(BaseAPITest):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
-# -- Tests: EnvioProductoViewSet --------------------------------------
+#Tests: EnvioProductoViewSet -
 
 class EnvioProductoViewSetTest(BaseAPITest):
     """Pruebas de la vista EnvioProductoViewSet."""

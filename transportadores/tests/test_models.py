@@ -1,13 +1,11 @@
 """
-======================================================================
   PRUEBAS DE MODELOS — Módulo Transportadores
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     Transportador - creacion, tipos de vehiculo, __str__,
                     ordering, activo, fecha_creacion
-======================================================================
 """
 
 import uuid
@@ -16,7 +14,7 @@ from django.test import TestCase
 from transportadores.models import Transportador
 
 
-# -- Helpers ----------------------------------------------------------
+# Helpers
 
 def crear_transportador(
     nombre='Trans Test',
@@ -34,8 +32,7 @@ def crear_transportador(
     )
 
 
-# -- Tests: Transportador ---------------------------------------------
-
+# Tests: Transportador 
 class TransportadorModelTest(TestCase):
     """Pruebas unitarias para el modelo Transportador."""
 

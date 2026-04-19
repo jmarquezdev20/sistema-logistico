@@ -1,14 +1,12 @@
 """
-======================================================================
   PRUEBAS DE SERIALIZERS — Módulo Usuarios
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     RolSerializer      - campos, serialización
     UserSerializer     - campos, password write_only, cliente_id,
                          crear y actualizar usuario
-======================================================================
 """
 
 from django.test import TestCase
@@ -17,7 +15,7 @@ from usuarios.models import User, Rol
 from usuarios.serializers import RolSerializer, UserSerializer
 
 
-# -- Helpers ----------------------------------------------------------
+# Helpers
 
 def crear_rol(nombre='admin'):
     rol, _ = Rol.objects.get_or_create(nombre=nombre)
@@ -34,7 +32,7 @@ def crear_usuario(username='ser_user', email='ser@test.com', rol_nombre='admin')
     )
 
 
-# -- Tests: RolSerializer ---------------------------------------------
+# Tests: RolSerializer 
 
 class RolSerializerTest(TestCase):
     """Pruebas para RolSerializer."""
@@ -54,8 +52,7 @@ class RolSerializerTest(TestCase):
         self.assertEqual(serializer.data['nombre'], 'admin')
 
 
-# -- Tests: UserSerializer --------------------------------------------
-
+# Tests: UserSerializer 
 class UserSerializerTest(TestCase):
     """Pruebas para UserSerializer."""
 

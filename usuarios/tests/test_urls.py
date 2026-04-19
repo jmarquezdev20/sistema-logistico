@@ -1,14 +1,12 @@
 """
-======================================================================
   PRUEBAS DE URLs — Módulo Usuarios
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     - Resolucion de todas las rutas del modulo usuarios
     - login, refresh, logout, me, crear, cambiar-password
     - UsuarioViewSet
-======================================================================
 """
 
 import uuid

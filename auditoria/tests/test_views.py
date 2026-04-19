@@ -1,13 +1,11 @@
 """
-======================================================================
   PRUEBAS DE VISTAS — Módulo Auditoria
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+  
   Cubre:
     AuditoriaViewSet - listar, filtros por modulo/usuario/fecha,
                        busqueda, permisos solo admin, readonly
-======================================================================
 """
 
 import uuid
@@ -47,7 +45,7 @@ def crear_registro(usuario=None, modulo='inventario', accion='Accion test'):
     )
 
 
-# -- Base con autenticacion JWT ---------------------------------------
+# Base con autenticacion JWT 
 
 class BaseAPITest(APITestCase):
     def setUp(self):
@@ -62,7 +60,7 @@ class BaseAPITest(APITestCase):
             self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
 
 
-# -- Tests: AuditoriaViewSet ------------------------------------------
+# Tests: AuditoriaViewSet 
 
 class AuditoriaListTest(BaseAPITest):
     """Pruebas de listado de registros de auditoria."""

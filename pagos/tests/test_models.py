@@ -1,13 +1,10 @@
 """
-======================================================================
   PRUEBAS DE MODELOS — Módulo Pagos
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
   Cubre:
     Pago - creacion, metodos de pago, __str__, ordering,
            comportamiento al guardar (marca factura como pagada)
-======================================================================
 """
 
 import uuid
@@ -21,8 +18,7 @@ from pagos.models import Pago
 from usuarios.models import User, Rol
 
 
-# -- Helpers ----------------------------------------------------------
-
+# Helpers
 def crear_rol(nombre='admin'):
     rol, _ = Rol.objects.get_or_create(nombre=nombre)
     return rol
@@ -79,7 +75,7 @@ def crear_pago(cliente=None, factura=None, monto=Decimal('119000'), metodo='tran
     )
 
 
-# -- Tests: Pago ------------------------------------------------------
+# Tests: Pago 
 
 class PagoModelTest(TestCase):
     """Pruebas unitarias para el modelo Pago."""

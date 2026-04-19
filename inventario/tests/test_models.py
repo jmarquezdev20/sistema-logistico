@@ -1,14 +1,12 @@
 """
-======================================================================
   PRUEBAS DE MODELOS — Módulo Inventario
   Sistema: BodegaXpress - Gestión Logística
   Autor:   Juan Manuel Márquez
-======================================================================
+
   Cubre:
-    ✔ Producto   — creación, __str__, unique_together, ordering
-    ✔ Inventario — creación, validación cantidad, OneToOne, fechas
-    ✔ MovimientoInventario — tipos, cantidad mínima, ordering
-======================================================================
+    Producto   — creación, __str__, unique_together, ordering
+    Inventario — creación, validación cantidad, OneToOne, fechas
+    MovimientoInventario — tipos, cantidad mínima, ordering
 """
 
 import uuid
@@ -20,7 +18,7 @@ from clientes.models import Cliente
 from infraestructura_bodegas.models import Bodega, Ubicacion
 
 
-# ── Helpers ──────────────────────────────────────────────────────────
+# Helpers 
 
 def crear_cliente(nombre='Cliente Test'):
     return Cliente.objects.create(
@@ -51,7 +49,7 @@ def crear_producto(cliente=None, nombre='Producto Test'):
     )
 
 
-# ── Tests: Producto ───────────────────────────────────────────────────
+# Tests: Producto 
 
 class ProductoModelTest(TestCase):
     """Pruebas unitarias para el modelo Producto."""
@@ -111,7 +109,7 @@ class ProductoModelTest(TestCase):
         self.assertEqual(nombres, sorted(nombres))
 
 
-# ── Tests: Inventario ─────────────────────────────────────────────────
+# Tests: Inventario 
 
 class InventarioModelTest(TestCase):
     """Pruebas unitarias para el modelo Inventario."""
@@ -195,7 +193,7 @@ class InventarioModelTest(TestCase):
         self.assertIsInstance(inventario.id, uuid.UUID)
 
 
-# ── Tests: MovimientoInventario ───────────────────────────────────────
+# Tests: MovimientoInventario
 
 class MovimientoInventarioModelTest(TestCase):
     """Pruebas unitarias para el modelo MovimientoInventario."""

@@ -1,14 +1,12 @@
 """
-======================================================================
   PRUEBAS DE MODELOS — Módulo Usuarios
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     Rol  - creacion, choices, __str__, unique
     User - creacion, propiedades es_admin/es_empleado/es_cliente,
            UUID, email unico, fecha_creacion, __str__
-======================================================================
 """
 
 import uuid
@@ -18,7 +16,7 @@ from django.core.exceptions import ValidationError
 from usuarios.models import User, Rol
 
 
-# -- Helpers ----------------------------------------------------------
+# Helpers
 
 def crear_rol(nombre='admin'):
     rol, _ = Rol.objects.get_or_create(nombre=nombre)
@@ -36,7 +34,7 @@ def crear_usuario(username='testuser', email='test@test.com', rol_nombre='admin'
     return user
 
 
-# -- Tests: Rol -------------------------------------------------------
+# Tests: Rol 
 
 class RolModelTest(TestCase):
     """Pruebas unitarias para el modelo Rol."""
@@ -78,7 +76,7 @@ class RolModelTest(TestCase):
         self.assertEqual(Rol.CLIENTE, 'cliente')
 
 
-# -- Tests: User ------------------------------------------------------
+# Tests: User
 
 class UserModelTest(TestCase):
     """Pruebas unitarias para el modelo User."""

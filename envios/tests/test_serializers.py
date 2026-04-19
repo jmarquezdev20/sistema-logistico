@@ -1,13 +1,10 @@
 """
-======================================================================
   PRUEBAS DE SERIALIZERS — Módulo Envios
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
   Cubre:
     OrdenEnvioSerializer    - campos, read_only, productos anidados
     EnvioProductoSerializer - campos, stock_disponible, read_only
-======================================================================
 """
 
 from django.test import TestCase
@@ -20,7 +17,7 @@ from envios.models import OrdenEnvio, EnvioProducto
 from envios.serializers import OrdenEnvioSerializer, EnvioProductoSerializer
 
 
-# -- Helpers ----------------------------------------------------------
+#Helpers 
 
 def crear_cliente(nombre='Cliente Ser Envio'):
     return Cliente.objects.create(
@@ -71,7 +68,7 @@ def crear_orden(cliente=None, transportador=None):
     )
 
 
-# -- Tests: EnvioProductoSerializer -----------------------------------
+#Tests: EnvioProductoSerializer
 
 class EnvioProductoSerializerTest(TestCase):
     """Pruebas para EnvioProductoSerializer."""
@@ -129,8 +126,7 @@ class EnvioProductoSerializerTest(TestCase):
         self.assertEqual(serializer.data['cantidad'], 5)
 
 
-# -- Tests: OrdenEnvioSerializer --------------------------------------
-
+#Tests: OrdenEnvioSerializer
 class OrdenEnvioSerializerTest(TestCase):
     """Pruebas para OrdenEnvioSerializer."""
 

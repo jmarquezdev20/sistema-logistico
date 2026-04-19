@@ -1,13 +1,10 @@
 """
-======================================================================
   PRUEBAS DE MODELOS — Módulo Facturacion
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
   Cubre:
     Factura        - creacion, numero_factura, estados, __str__
     DetalleFactura - creacion, relaciones, __str__
-======================================================================
 """
 
 import uuid
@@ -23,7 +20,7 @@ from transportadores.models import Transportador
 from infraestructura_bodegas.models import Bodega, Ubicacion
 
 
-# -- Helpers ----------------------------------------------------------
+# Helpers
 
 def crear_cliente(nombre='Cliente Factura'):
     return Cliente.objects.create(
@@ -73,7 +70,7 @@ def crear_factura(cliente=None, estado='pendiente'):
     )
 
 
-# -- Tests: Factura ---------------------------------------------------
+# Tests: Factura
 
 class FacturaModelTest(TestCase):
     """Pruebas unitarias para el modelo Factura."""
@@ -167,8 +164,7 @@ class FacturaModelTest(TestCase):
         self.assertEqual(factura.total, Decimal('119000'))
 
 
-# -- Tests: DetalleFactura --------------------------------------------
-
+# Tests: DetalleFactura 
 class DetalleFacturaModelTest(TestCase):
     """Pruebas unitarias para el modelo DetalleFactura."""
 

@@ -1,14 +1,12 @@
 """
-======================================================================
   PRUEBAS DE URLs — Módulo Envios
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     - Resolucion de rutas estandar y anidadas
     - Endpoint personalizado despachar
     - Rutas de productos por orden
-======================================================================
 """
 
 import uuid
@@ -21,8 +19,7 @@ from envios import views
 class EnvioURLTest(TestCase):
     """Pruebas de resolucion de URLs del modulo envios."""
 
-    # -- Ordenes estandar ---------------------------------------------
-
+    #Ordenes estandar
     def test_url_lista_ordenes_resuelve(self):
         """La URL /api/envios/ordenes/ resuelve correctamente."""
         resolved = resolve('/api/envios/ordenes/')
@@ -46,7 +43,7 @@ class EnvioURLTest(TestCase):
         self.assertIn('/ordenes/', url)
         self.assertIn(pk, url)
 
-    # -- Endpoint despachar -------------------------------------------
+    #Endpoint despachar 
 
     def test_url_despachar_resuelve(self):
         """La URL /api/envios/ordenes/{id}/despachar/ resuelve."""
@@ -60,8 +57,7 @@ class EnvioURLTest(TestCase):
         url = reverse('orden-envio-despachar', kwargs={'pk': pk})
         self.assertIn('despachar', url)
 
-    # -- Productos por orden ------------------------------------------
-
+    #Productos por orden
     def test_url_productos_de_orden_lista_resuelve(self):
         """La URL /api/envios/ordenes/{id}/productos/ resuelve."""
         pk = str(uuid.uuid4())
@@ -88,7 +84,7 @@ class EnvioURLTest(TestCase):
         url = reverse('orden-productos-detail', kwargs={'orden_pk': orden_pk, 'pk': prod_pk})
         self.assertIn('productos', url)
 
-    # -- Estructura general -------------------------------------------
+    #Estructura general
 
     def test_todas_las_rutas_bajo_prefijo_envios(self):
         """Todas las rutas del modulo estan bajo /api/envios/."""

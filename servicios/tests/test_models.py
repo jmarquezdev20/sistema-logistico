@@ -1,13 +1,11 @@
 """
-======================================================================
   PRUEBAS DE MODELOS — Módulo Servicios
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+  
   Cubre:
     CatalogoServicio - creacion, unidades, __str__, ordering, activo
     ServicioPrestado - creacion, calculo valor_total, __str__, ordering
-======================================================================
 """
 
 import uuid
@@ -19,8 +17,7 @@ from clientes.models import Cliente
 from servicios.models import CatalogoServicio, ServicioPrestado
 
 
-# -- Helpers ----------------------------------------------------------
-
+# Helpers
 def crear_cliente(nombre='Cliente Servicios'):
     return Cliente.objects.create(
         nombre=nombre,
@@ -57,7 +54,7 @@ def crear_servicio_prestado(cliente=None, catalogo=None, cantidad=Decimal('2'), 
     )
 
 
-# -- Tests: CatalogoServicio ------------------------------------------
+# Tests: CatalogoServicio 
 
 class CatalogoServicioModelTest(TestCase):
     """Pruebas unitarias para el modelo CatalogoServicio."""
@@ -143,7 +140,7 @@ class CatalogoServicioModelTest(TestCase):
         self.assertEqual(catalogo.tarifa, Decimal('75000.50'))
 
 
-# -- Tests: ServicioPrestado ------------------------------------------
+# Tests: ServicioPrestado 
 
 class ServicioPrestadoModelTest(TestCase):
     """Pruebas unitarias para el modelo ServicioPrestado."""

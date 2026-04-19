@@ -1,13 +1,11 @@
 """
-======================================================================
   PRUEBAS DE MODELOS — Módulo Auditoria
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+  
   Cubre:
     RegistroAuditoria - creacion, modulos, __str__, ordering,
                         usuario nulo, fecha automatica
-======================================================================
 """
 
 import uuid
@@ -17,7 +15,7 @@ from auditoria.models import RegistroAuditoria
 from usuarios.models import User, Rol
 
 
-# -- Helpers ----------------------------------------------------------
+# Helpers
 
 def crear_rol(nombre='admin'):
     rol, _ = Rol.objects.get_or_create(nombre=nombre)
@@ -45,7 +43,7 @@ def crear_registro(usuario=None, modulo='inventario', accion='Accion test', deta
     )
 
 
-# -- Tests: RegistroAuditoria -----------------------------------------
+#Tests: RegistroAuditoria 
 
 class RegistroAuditoriaModelTest(TestCase):
     """Pruebas unitarias para el modelo RegistroAuditoria."""

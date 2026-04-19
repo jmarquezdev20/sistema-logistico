@@ -1,13 +1,11 @@
 """
-======================================================================
   PRUEBAS DE SERIALIZERS — Módulo Facturacion
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     FacturaSerializer       - campos, read_only, detalles anidados
     DetalleFacturaSerializer - campos, read_only
-======================================================================
 """
 
 from decimal import Decimal
@@ -20,7 +18,7 @@ from facturacion.serializers import FacturaSerializer, DetalleFacturaSerializer
 from servicios.models import CatalogoServicio, ServicioPrestado
 
 
-# -- Helpers ----------------------------------------------------------
+# Helpers
 
 def crear_cliente(nombre='Cliente Serializer Fact'):
     return Cliente.objects.create(
@@ -67,7 +65,7 @@ def crear_factura(cliente=None):
     )
 
 
-# -- Tests: DetalleFacturaSerializer ----------------------------------
+# Tests: DetalleFacturaSerializer
 
 class DetalleFacturaSerializerTest(TestCase):
     """Pruebas para DetalleFacturaSerializer."""
@@ -112,7 +110,7 @@ class DetalleFacturaSerializerTest(TestCase):
         self.assertEqual(Decimal(serializer.data['subtotal']), Decimal('100000'))
 
 
-# -- Tests: FacturaSerializer -----------------------------------------
+# Tests: FacturaSerializer
 
 class FacturaSerializerTest(TestCase):
     """Pruebas para FacturaSerializer."""

@@ -1,12 +1,11 @@
 """
-======================================================================
+
   PRUEBAS DE UTILS — Módulo Auditoria
   Sistema: BodegaXpress - Gestion Logistica
   Autor:   Juan Manuel Marquez
-======================================================================
+
   Cubre:
     registrar() - funcion utilitaria que crea registros de auditoria
-======================================================================
 """
 
 from django.test import TestCase
