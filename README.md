@@ -1,6 +1,9 @@
 # BodegaXpress — Sistema de Gestión Logística
 > Plataforma full-stack para la gestión integral de bodegas, inventario, envíos y facturación de servicios logísticos. Desarrollada con Django REST Framework + React + PostgreSQL.
 ---
+
+🌐 **Demo en vivo:** [sistemalogistico.netlify.app](https://sistemalogistico.netlify.app) — Credenciales: `juan@gmail.com` / `admin1234`
+
 ## Tabla de contenido
 
 - [Descripción general](#descripción-general)
