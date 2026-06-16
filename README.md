@@ -47,7 +47,8 @@ El sistema opera con tres roles diferenciados — **administrador**, **empleado*
 | Frontend | React + Vite | 18 / 5 |
 | Autenticación | JWT (SimpleJWT) | 5.3 |
 | Documentación API | drf-spectacular (Swagger) | 0.27 |
-| Infraestructura | Docker + Docker Compose | — |
+|Despliegue: Render |
+|Almacenamiento: Cloudinary |
 | Correo | Gmail SMTP | — |
 | PDF | ReportLab | 4.x |
 
